@@ -1,0 +1,1 @@
+project(bird_chirp.client)
