@@ -25,55 +25,56 @@ bool base_mail_receiver::Connect() {
 	return false;
   }
 
-  PrintResponse();
+  (void)ReadResponse();
   return true;
 }
 
-bool base_mail_receiver::Authorize() {
-  return false;
-}
-
-int base_mail_receiver::GetMessagesAmount() {
-  return 0;
-}
-
 bool base_mail_receiver::SendRequest(std::string_view request) {
-  spdlog::info("Running command '{}'.", request);
-  std::ostream request_stream(&request_buffer_);
-  request_stream << request << "\r\n";
+  if (request.size() <= kMaxMessageSizeToLog) {
+	spdlog::info("Running command '{}'.", request);
+  } else {
+	spdlog::info("Running too big command.");
+  }
+  std::vector<char> request_buffer(request.size() + 2);
+  memccpy(request_buffer.data(), request.data(), 0, request.size());
+  request_buffer[request.size()] = '\r';
+  request_buffer[request.size() + 1] = '\n';
+
   asio::error_code error_code;
-  auto bytes_transferred = asio::write(*socket_, request_buffer_, error_code);
-  spdlog::info("Request: {} bytes transferred.", bytes_transferred);
+  auto bytes_transferred = asio::write(*socket_, asio::dynamic_buffer(request_buffer), error_code);
+  spdlog::debug("Request: {} bytes transferred.", bytes_transferred);
 
   if (error_code) {
 	spdlog::error("Request error {}. Message: {}",
 				  error_code.value(), error_code.message());
-	PrintResponse();
 	return false;
   }
 
-  PrintResponse();
   return bytes_transferred;
 }
 
-void base_mail_receiver::PrintResponse() {
+std::string base_mail_receiver::ReadResponse(size_t max_message_size) const {
+  spdlog::debug("Waiting for response, {} bytes awaited.", max_message_size);
   asio::error_code error_code;
   std::vector<char> buffer;
 
   auto bytes_transferred = asio::read_until(
 	  *socket_,
-	  asio::dynamic_buffer(buffer, 1024),
-	  "\n",
+	  asio::dynamic_buffer(buffer, max_message_size),
+	  "\r\n",
 	  error_code);
-  spdlog::info("Response: {} bytes transferred.", bytes_transferred);
+  spdlog::debug("Response: {} bytes transferred.", bytes_transferred);
 
   if (error_code) {
 	spdlog::error("Response error {}. Message: {}",
 				  error_code.value(), error_code.message());
   }
 
-  std::stringstream response_string;
-  response_string << std::istream(&response_buffer_).rdbuf();
-  spdlog::info("Got response: {}", buffer.data());
+  if (buffer.size() <= kMaxMessageSizeToLog) {
+	spdlog::info("Got response: {}", buffer.data());
+  } else {
+	spdlog::info("Got too big response response.");
+  }
+  return buffer.data();
 }
 } // namespace BirdChirp::Core

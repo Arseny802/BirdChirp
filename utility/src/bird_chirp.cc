@@ -1,5 +1,5 @@
 #include <iostream>
-#include <receiver_pop3.h>
+#include "../../client/include/receiver_pop3.h"
 #include <setup.h>
 #include <spdlog/spdlog.h>
 
@@ -17,6 +17,9 @@ int main() {
   BirdChirp::Core::receiver_pop3 receiver_pop3(settings);
   if (receiver_pop3.Connect() && receiver_pop3.Authorize()) {
 	receiver_pop3.RunStat();
+	//receiver_pop3.RunTop(1);
+	std::string first_message;
+	receiver_pop3.RunRetrieve(1, first_message);
 	receiver_pop3.RunList();
 	receiver_pop3.RunQuit();
   }

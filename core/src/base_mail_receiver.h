@@ -13,16 +13,15 @@ class base_mail_receiver {
   explicit base_mail_receiver(setup settings);
 
   bool Connect();
-  virtual bool Authorize();
-  virtual int GetMessagesAmount();
-  void PrintResponse();
+  virtual bool Authorize() = 0;
+  virtual int GetMessagesAmount() = 0;
 
  protected:
   bool SendRequest(std::string_view request);
+  [[nodiscard]] std::string ReadResponse(size_t max_message_size = kDefaultMaxMessageSize) const;
 
-  static constexpr uint16_t kDefaultPort_Pop3 = 110;
-  static constexpr uint16_t kDefaultPort_Imap = 111;
-  static constexpr uint16_t kDefaultPort_Smtp = 25;
+  static constexpr size_t kDefaultMaxMessageSize = std::numeric_limits<size_t>::max();
+  static constexpr size_t kMaxMessageSizeToLog = 1024;
 
   setup settings_;
 
@@ -31,7 +30,5 @@ class base_mail_receiver {
   asio::ssl::context ssl_context_;
   asio::ip::tcp::resolver resolver_;
   std::unique_ptr<ssl_socket> socket_;
-  asio::streambuf request_buffer_;
-  asio::streambuf response_buffer_;
 };
 } // namespace BirdChirp::Core

@@ -13,8 +13,8 @@ conan_basic_setup()
 # Solution projects.
 add_subdirectory(logging)
 add_subdirectory(core)
-add_subdirectory(storage)
+add_subdirectory(server/storage)
 add_subdirectory(client)
 add_subdirectory(server)
-add_subdirectory(console_utility)
+add_subdirectory(utility)
 
