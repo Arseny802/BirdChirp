@@ -22,7 +22,7 @@ set(CMAKE_AUTORCC ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
-message(${QT_VERSION})
+
 set(TS_FILES bird_chirp_application_en_GB.ts)
 
 set(PROJECT_SOURCES

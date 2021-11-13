@@ -18,6 +18,7 @@ conan_basic_setup()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 # Solution projects.
+add_subdirectory(tools)
 add_subdirectory(logging)
 add_subdirectory(core)
 add_subdirectory(client)

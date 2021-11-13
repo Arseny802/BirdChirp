@@ -2,9 +2,10 @@
 #include "../../client/include/receiver_pop3.h"
 #include <setup.h>
 #include <spdlog/spdlog.h>
+#include "default_logger.h"
 
 int main() {
-  spdlog::info("bird_chirp.utility: welcome!");
+  BirdChirpLog::GetInstance()->Info("bird_chirp.utility: welcome!");
   BirdChirp::Core::setup settings;
   settings.host = "pop3.mail.ru";
   settings.port = 995;
@@ -24,6 +25,6 @@ int main() {
 	receiver_pop3.RunQuit();
   }
 
-  spdlog::info("bird_chirp.utility: see you later!");
+  BirdChirpLog::GetInstance()->Info("bird_chirp.utility: see you later!");
   return EXIT_SUCCESS;
 }
