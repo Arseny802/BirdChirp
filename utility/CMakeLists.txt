@@ -5,7 +5,8 @@ add_executable(
 		src/bird_chirp.cc
 )
 target_include_directories(bird_chirp.utility PUBLIC
-		../core/include)
+		../core/include
+		../client/include)
 target_link_libraries(bird_chirp.utility
 		bird_chirp.core
 		bird_chirp.client
