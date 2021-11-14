@@ -240,12 +240,12 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSave_setup">
    <property name="text">
-    <string>Save setup</string>
+    <string>Save Setup</string>
    </property>
   </action>
   <action name="actionLoad_setup">
    <property name="text">
-    <string>Load setup</string>
+    <string>Load Setup</string>
    </property>
   </action>
   <action name="actionSettings">

@@ -2,7 +2,7 @@
 #include "../include/receiver_pop3.h"
 
 namespace BirdChirp::Core {
-receiver_pop3::receiver_pop3(const setup &settings) : base_mail_receiver(settings){
+receiver_pop3::receiver_pop3(const Setup &settings) : base_mail_receiver(settings){
 
 }
 

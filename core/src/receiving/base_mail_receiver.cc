@@ -2,21 +2,25 @@
 #include <asio/read.hpp>
 #include <utility>
 #include <asio/read_until.hpp>
-#include "pch.h"
+#include <src/default_ports.h>
+#include "src/pch.h"
 #include "base_mail_receiver.h"
 #include "default_logger.h"
 
 namespace BirdChirp::Core {
-base_mail_receiver::base_mail_receiver(setup settings)
+base_mail_receiver::base_mail_receiver(Setup settings)
 	: settings_(std::move(settings)),
 	  ssl_context_(asio::ssl::context::tls_client),
 	  resolver_(io_context_) {
   socket_ = std::make_unique<ssl_socket>(io_context_, ssl_context_);
+  if (!settings_.port.has_value()) {
+	settings_.port = DefaultPorts::Pop3s;
+  }
 }
 
 bool base_mail_receiver::Connect() {
-  BirdChirpLog::GetInstance()->Info("Creating connection to '{}:{}'.", settings_.host, settings_.port);
-  auto endpoints = resolver_.resolve(settings_.host, std::to_string(settings_.port));
+  BirdChirpLog::GetInstance()->Info("Creating connection to '{}:{}'.", settings_.host, settings_.port.value());
+  auto endpoints = resolver_.resolve(settings_.host, std::to_string(settings_.port.value()));
   asio::connect(socket_->next_layer(), endpoints);
   asio::error_code error_code;
   socket_->handshake(asio::ssl::stream_base::client, error_code);

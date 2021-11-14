@@ -17,15 +17,6 @@ class base_logger {
  public:
   explicit base_logger(std::string_view logger_name = logger_names::kDefault);
   ~base_logger();
-/*
-  void Trac(std::string_view message);
-  void Debu(std::string_view message);
-  void Info(std::string_view message);
-  void Warn(std::string_view message);
-  void Erro(std::string_view message);
-  void Crit(std::string_view message);
-  void Fata(std::string_view message);
-*/
 
   void Trac(fmt::string_view message);
   void Debu(fmt::string_view message);

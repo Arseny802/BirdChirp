@@ -2,12 +2,13 @@
 #include <asio/ip/tcp.hpp>
 #include <asio/ssl/stream.hpp>
 #include <asio/streambuf.hpp>
-#include "../../core/src/base_mail_receiver.h"
+#include "../../core/include/Setup.h"
+#include "../../core/src/receiving/base_mail_receiver.h"
 
 namespace BirdChirp::Core {
 class receiver_pop3 : public base_mail_receiver {
  public:
-  explicit receiver_pop3(const setup &settings);
+  explicit receiver_pop3(const Setup &settings);
   ~receiver_pop3();
 
   bool Authorize() override;

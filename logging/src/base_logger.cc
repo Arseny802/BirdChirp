@@ -7,7 +7,7 @@ namespace BirdChirp::Logging {
 base_logger::base_logger(std::string_view logger_name) {
 
   auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(
-	  fmt::format("logs/{}", logger_name.data()), kMaxFileSize, kMaxFilesAmount);
+	  fmt::format("logs/{}.log", logger_name.data()), kMaxFileSize, kMaxFilesAmount);
   file_sink->set_level(spdlog::level::trace);
 
 #ifndef NDEBUG
@@ -28,37 +28,6 @@ base_logger::base_logger(std::string_view logger_name) {
 }
 
 base_logger::~base_logger() = default;
-/*
-#ifdef NDEGUG
-void base_logger::Trac(std::string_view message) {
-}
-void base_logger::Debu(std::string_view message) {
-}
-#else
-void base_logger::Trac(std::string_view message) {
-  loggerPtr_->trace(message);
-}
-void base_logger::Debu(std::string_view message) {
-  loggerPtr_->debug(message);
-}
-#endif
-
-void base_logger::Info(std::string_view message) {
-  loggerPtr_->info(message);
-}
-void base_logger::Warn(std::string_view message) {
-  loggerPtr_->warn(message);
-}
-void base_logger::Erro(std::string_view message) {
-  loggerPtr_->error(message);
-}
-void base_logger::Crit(std::string_view message) {
-  loggerPtr_->critical(message);
-}
-void base_logger::Fata(std::string_view message) {
-  loggerPtr_->critical(message);
-}
-*/
 
 #ifdef NDEGUG
 void base_logger::Trac(fmt::string_view message) {

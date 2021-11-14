@@ -4,13 +4,13 @@
 #include <asio/ip/tcp.hpp>
 #include <asio/streambuf.hpp>
 #include <asio/ssl/stream.hpp>
-#include "../include/setup.h"
+#include "../../include/Setup.h"
 
 namespace BirdChirp::Core {
 class base_mail_receiver {
   using ssl_socket = asio::ssl::stream<asio::ip::tcp::socket>;
  public:
-  explicit base_mail_receiver(setup settings);
+  explicit base_mail_receiver(Setup settings);
 
   bool Connect();
   virtual bool Authorize() = 0;
@@ -23,7 +23,7 @@ class base_mail_receiver {
   static constexpr size_t kDefaultMaxMessageSize = std::numeric_limits<size_t>::max();
   static constexpr size_t kMaxMessageSizeToLog = 1024;
 
-  setup settings_;
+  Setup settings_;
 
  private:
   asio::io_context io_context_;

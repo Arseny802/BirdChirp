@@ -2,7 +2,7 @@ project(bird_chirp.core)
 
 
 add_library(bird_chirp.core SHARED
-		src/base_mail_receiver.cc
+		src/receiving/base_mail_receiver.cc
 		../client/src/receiver_pop3.cc
 		)
 
