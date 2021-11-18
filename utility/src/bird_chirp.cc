@@ -47,7 +47,7 @@ BirdChirp::Utility::Arguments ParseArguments(int argc, char **argv) {
 	  "Port for connection creating",
 	  false,
 	  0,
-	  "uint");
+	  "uint16");
   TCLAP::ValueArg<bool> argument_tls(
 	  "t",
 	  "tls",
@@ -81,6 +81,13 @@ BirdChirp::Utility::Arguments ParseArguments(int argc, char **argv) {
 	  true,
 	  BirdChirp::Utility::ProtocolTraits::kAvailableProtocols[0].data(),
 	  &allowed_protocols);
+  TCLAP::ValueArg<uint32_t> argument_command(
+	  "c",
+	  "command",
+	  "Password for authorization",
+	  true,
+	  0,
+	  "uint32");
 
   try {
 	cmd.add(argument_protocol);
@@ -89,6 +96,7 @@ BirdChirp::Utility::Arguments ParseArguments(int argc, char **argv) {
 	cmd.add(argument_tls);
 	cmd.add(argument_user);
 	cmd.add(argument_pass);
+	cmd.add(argument_command);
 	cmd.parse(argc, argv);
   } catch (TCLAP::ArgException &exception) {
 	BirdChirpLog::GetInstance()->Erro("Exception occurred on arguments parsing! {}: {}",
@@ -99,6 +107,7 @@ BirdChirp::Utility::Arguments ParseArguments(int argc, char **argv) {
   try {
 	result.protocol = BirdChirp::Utility::ProtocolTraits::ProtocolFromString(
 		argument_protocol.getValue());
+	result.command = argument_command.getValue();
 
 	result.running_setup.host = argument_host.getValue();
 	result.running_setup.login = argument_user.getValue();

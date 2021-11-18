@@ -1,6 +1,8 @@
 #pragma once
 
 #include <array>
+#include <string>
+#include <sstream>
 #include <string_view>
 #include <memory>
 

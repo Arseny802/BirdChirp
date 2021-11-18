@@ -1,7 +1,7 @@
 #pragma once
 
 namespace BirdChirp::Utility {
-enum class CommandsPop3 : uint_32t {
+enum class CommandsPop3 : uint32_t {
   None = 0,
   Stat = 1,
   List = 2,

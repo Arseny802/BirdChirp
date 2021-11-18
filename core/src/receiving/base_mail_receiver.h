@@ -16,9 +16,10 @@ class base_mail_receiver {
   virtual bool Authorize() = 0;
   virtual int GetMessagesAmount() = 0;
 
+  [[nodiscard]] std::string ReadResponse(size_t max_message_size = kDefaultMaxMessageSize) const;
+
  protected:
   bool SendRequest(std::string_view request);
-  [[nodiscard]] std::string ReadResponse(size_t max_message_size = kDefaultMaxMessageSize) const;
 
   static constexpr size_t kDefaultMaxMessageSize = std::numeric_limits<size_t>::max();
   static constexpr size_t kMaxMessageSizeToLog = 1024;

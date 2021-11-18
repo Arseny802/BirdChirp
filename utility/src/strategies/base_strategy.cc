@@ -11,13 +11,4 @@ bool BaseStrategy::Initialize(Core::Setup &&running_setup) {
   running_setup_ = running_setup;
   return true;
 }
-
-std::string BaseStrategy::RunCommand(std::string &&command) {
-  ParseCommand(std::move(command));
-  return RunCommand(0);
-}
-
-void BaseStrategy::ParseCommand(std::string &&command) {
-
-}
 } // namespace BirdChirp::Utility

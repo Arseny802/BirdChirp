@@ -130,13 +130,15 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mainwindow.ui" line="243"/>
         <location filename="../../cmake-build-debug/application/bird_chirp_application/bird_chirp.application_autogen/include/ui_mainwindow.h" line="233"/>
-        <source>Save setup</source>
+        <source>Save Setup</source>
+        <oldsource>Save setup</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="248"/>
         <location filename="../../cmake-build-debug/application/bird_chirp_application/bird_chirp.application_autogen/include/ui_mainwindow.h" line="234"/>
-        <source>Load setup</source>
+        <source>Load Setup</source>
+        <oldsource>Load setup</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
